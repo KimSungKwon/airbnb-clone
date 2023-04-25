@@ -35,6 +35,9 @@ const Modal: React.FC<ModalProps> = ({
     setShowModal(isOpen);
   }, [isOpen])
 
+  /*
+  *   Event handlers
+  */
   const handleClose = useCallback(() => {
     if (disabled) return;
 
@@ -55,6 +58,13 @@ const Modal: React.FC<ModalProps> = ({
 
     secondaryAction();
   }, [disabled, secondaryAction])
+
+  /*
+  *   if /hooks/useRegisterModal.ts 's isOpen == False, no render modal
+  */
+  if (!isOpen) {
+    return null;
+  }
 
   return ( 
     <>
