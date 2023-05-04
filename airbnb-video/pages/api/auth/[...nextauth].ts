@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 
 import prisma from '@/app/libs/prismadb';
 
+// singIn(), signIn('github'), signIn('google')
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
