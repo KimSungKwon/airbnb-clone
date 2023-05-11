@@ -10,7 +10,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
-
+import dynamic from "next/dynamic";
 
 enum STEPS {
   CATEGORY = 0,
@@ -43,7 +43,12 @@ const RentModal = () => {
 
   // 값들 변수로 저장
   const category = watch('category');
+  const location = watch('location');
 
+  // dynamic import로 SSR하지않고, location이 바뀔때마다 import
+  const Map = useMemo(() => dynamic(() => import('../Map'), { 
+    ssr: false 
+  }), [location]);
 
   // Form의 id에 해당하는 값을 value로 바꿈. 즉, Form에 value들을 채움
   const setCustomValue = (id: string, value: any) => {
@@ -100,7 +105,24 @@ const RentModal = () => {
       </div>
     </div>
   )
-
+  /*
+  *   LOCATION Step
+  */
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading 
+          title="Where is your place located?"
+          subtitle="Help guests find your place"      
+        /> 
+        <CountrySelect
+          value={location} 
+          onChange={(value) => setCustomValue('location', value)}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    )
+  }
   /*
   *   action button: Next, Create Button
   *   secondary action button: Back Button
