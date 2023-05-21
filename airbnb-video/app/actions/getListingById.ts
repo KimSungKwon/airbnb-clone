@@ -8,7 +8,7 @@ export default async function getListingById(params: IParams) {
   try {
     const { listingId } = params;
 
-    // id가 listingId값과 같고, user값이 있는 listing 데이터를 가져옴
+    // id가 listingId값과 같고, 조회값에 user 필드 포함시킴
     const listing = await prisma.listing.findUnique({
       where: {
         id: listingId
