@@ -3,9 +3,22 @@ import prisma from "@/app/libs/prismadb";
 /*
 *   현재 DB에 있는 Listing들을 받아옴
 */
-export default async function getListings() {
+export interface IListingsParams {
+  userId?: string;
+}
+
+export default async function getListings(params: IListingsParams) {
   try {
+    const { userId } = params;
+
+    let query: any = {};
+
+    if (userId) {
+      query.userId = userId;
+    }
+
     const listings = await prisma.listing.findMany({
+      where: query,
       orderBy: {
         createdAt: 'desc'
       }
