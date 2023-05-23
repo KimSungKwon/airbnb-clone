@@ -1,19 +1,20 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import { Listing, Reservation } from "@prisma/client";
 
-import { SafeListing, SafeUser } from "@/app/types";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import useCountries from "@/app/hooks/useCountries";
 import { useCallback, useMemo } from "react";
 import { format } from 'date-fns';
 import Image from "next/image";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
-
+/*
+*   reservation, onAction, ... actionId 는 ('/trips' 를 위해서)
+*/
 interface ListingCardProps {
   data: SafeListing;
-  reservation?: Reservation;
+  reservation?: SafeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -27,6 +28,9 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
   
   const location = getByValue(data.locationValue);
 
+  /*
+  *   ('/trips'의 취소버튼 용도)
+  */
   const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
@@ -38,7 +42,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
   }, [onAction, actionId, disabled])
   
   /*
-  *   reservation 값이 있으면... 없으면 다른값으로
+  *   reservation 값이 있으면... ('/trips' 전용)
   */
   const price = useMemo(() => {
     if (reservation) {
@@ -81,6 +85,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
         <div className="font-semibold text-lg">
           {location?.region}, {location?.label}
         </div>
+        {/* index page와 /trip 페이지를 구분해서.. */}
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div>
