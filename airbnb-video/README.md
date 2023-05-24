@@ -37,6 +37,9 @@ pnpm dev
 ### public
 - 이미지파일, 리소스
 
+### 그 외
+- middleware: 로그인을 하지 않은 상태일 때, url에 페이지경로를 직접 입력해 로그인 전용 페이지에 들어가는 것을 방지 
+
 ## using Libararies:
 
 - react-hook-form: 효과적인 폼 관리, 개발을 위한 입력 상태관리 라이브러리
@@ -50,3 +53,4 @@ pnpm dev
 - react-cloudinary: Cloudinary 서비스를 이용한 파일 업로드 라이브러리
 - date-fns: 날짜 관련 라이브러리
 - react-date-range: 기간 설정, 달력 컴포넌트 라이브러리
+- react-spinners: 로딩용 컴포넌트
