@@ -1,6 +1,6 @@
 ## Airbnb clone project
 
-using **Next.js 13*
+using **Next.js 13**
 
 reference: https://youtu.be/c_-b_isI4vg by Antonio
 
